@@ -1,4 +1,5 @@
-This is a playground to see how one might build a dependency-free RESTful API framework.
+This is a playground to see how to go about implementing many 
+required features of a RESTful API using Gin.
 
 The basic requirements from a RESTful API framework are:
 - parameters in URL - such as `api/user/123`
