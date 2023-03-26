@@ -6,11 +6,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var router = gin.Default()
-
 func main() {
 	r := gin.New()
-	//r.Use(logger.Logger())
+	//r.Use(logger.Logger()) // add middleware for all endpoints.
 	r.Use(gin.Recovery())
 	routes.GetRoutes(r)
 

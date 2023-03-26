@@ -1,39 +1,36 @@
 package responses
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
-type singleItemResponse struct {
-	Data interface{} `json:"data"`
-}
-
-type multiItemResponse struct {
-	Data interface{} `json:"data"`
-	Pagination
-}
-
-type Pagination struct {
-	CurrentPage int `json:"currentPage"`
-	PerPage     int `json:"perPage"`
-	PageCount   int `json:"pageCount"`
-	TotalCount  int `json:"totalCount"`
-}
-
 func SingleItemResponse(c *gin.Context, data interface{}) {
-	resp := singleItemResponse{
+	resp := singleItemResponseType{
 		Data: data,
 	}
 
 	c.JSON(http.StatusOK, resp)
 }
 
-func MultiItemResponse(c *gin.Context, data interface{}, pagination Pagination) {
-	resp := multiItemResponse{
-		Data:       data,
-		Pagination: pagination,
+func MultiItemResponse(c *gin.Context, data interface{}, pagination PaginationType) {
+	resp := multiItemResponseType{
+		Data:           data,
+		PaginationType: pagination,
 	}
 
 	c.JSON(http.StatusOK, resp)
+}
+
+func ValidationErrorResponse(c *gin.Context, code int, errors []ValidationField) {
+	resp := ValidationErrorResponseType{
+		Name:    "Validation failed",
+		Message: "One or more validation errors occurred",
+		Code:    code,
+		Status:  "error",
+		Errors:  errors,
+	}
+
+	c.JSON(code, resp)
 }

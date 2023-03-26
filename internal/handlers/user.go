@@ -1,9 +1,9 @@
 package handlers
 
 import (
-	"github.com/gin-gonic/gin"
-
 	"github.com/doublehops/dh-api/internal/responses"
+
+	"github.com/gin-gonic/gin"
 )
 
 type User struct {
@@ -36,7 +36,7 @@ func ListUser(c *gin.Context) {
 		},
 	}
 
-	p := responses.Pagination{
+	p := responses.PaginationType{
 		CurrentPage: 1,
 		PerPage:     10,
 		PageCount:   22,
@@ -44,4 +44,15 @@ func ListUser(c *gin.Context) {
 	}
 
 	responses.MultiItemResponse(c, users, p)
+}
+
+// UpdateUser - Validation error example.
+func UpdateUser(c *gin.Context) {
+	errors := []responses.ValidationField{
+		{
+			"emailAddress": []string{"email address not valid"},
+		},
+	}
+
+	responses.ValidationErrorResponse(c, 422, errors)
 }

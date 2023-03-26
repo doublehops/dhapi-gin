@@ -2,10 +2,11 @@ package routes
 
 import (
 	"fmt"
-	"github.com/doublehops/dh-api/internal/handlers"
-	"github.com/doublehops/dh-api/internal/middleware/customauth"
 	"log"
 	"net/http"
+
+	"github.com/doublehops/dh-api/internal/handlers"
+	"github.com/doublehops/dh-api/internal/middleware/customauth"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,8 +20,8 @@ func v1routes(rg *gin.RouterGroup) {
 	user := rg.Group("/user")
 
 	user.GET("", handlers.ListUser)
-
 	user.GET("/bobby", customauth.Auth(), handlers.GetUser)
+	user.PUT("", handlers.UpdateUser)
 
 	user.GET("/middleware-test", func(c *gin.Context) {
 		example := c.MustGet("example").(string)

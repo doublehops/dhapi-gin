@@ -1,9 +1,10 @@
 package customauth
 
 import (
-	"github.com/gin-gonic/gin"
 	"log"
 	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
 func Auth() gin.HandlerFunc {

@@ -1,9 +1,10 @@
 package logger
 
 import (
-	"github.com/gin-gonic/gin"
 	"log"
 	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
 func Logger() gin.HandlerFunc {
