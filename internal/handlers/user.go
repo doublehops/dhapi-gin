@@ -57,8 +57,8 @@ type UpdateUserObj struct {
 
 func GetErrorMessages() map[string]map[string]string {
 	return map[string]map[string]string{
-		"--username": {"required": "This field is required"},
-		"country":    {"required": "This field is required", "min": "Must be at least 3 characters long"},
+		"username": {"required": "This field is required"},
+		"country":  {"required": "This field is required", "min": "Must be at least 3 characters long"},
 	}
 }
 
@@ -145,28 +145,8 @@ func UpdateUser(c *gin.Context) {
 	if err != nil {
 		fmt.Printf(">>>>>> error: %s\n", err)
 	}
-	fmt.Printf(">>>> user: %s\n", user)
-	//_ = json.Unmarshal(c.Request.Body, &user)
-	//if err := c.ShouldBindJSON(&user); err != nil {
-	//	c.AbortWithStatusJSON(http.StatusBadRequest,
-	//		gin.H{
-	//			"error":   "VALIDATEERR-1",
-	//			"message": "Invalid inputs. Please check your inputs"})
-	//	return
-	//}
 
-	rawdata, err := c.GetRawData()
-	if err != nil {
-		fmt.Printf(">>>> error: %s\n", err)
-	}
-	fmt.Printf(">>>> raw data: %s\n", rawdata)
+	validationErrors := Validate(c, &user)
 
-	errors := Validate(c, &user)
-	//errors := []responses.ValidationField{
-	//	{
-	//		"emailAddress": []string{"email address not valid"},
-	//	},
-	//}
-
-	responses.ValidationErrorResponse(c, 422, errors)
+	responses.ValidationErrorResponse(c, 422, validationErrors)
 }
