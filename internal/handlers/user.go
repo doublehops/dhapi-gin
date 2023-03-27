@@ -77,7 +77,7 @@ func getStandardErrors(tag string) string {
 func getErrorMessage(field, tag, ginError string) string {
 	messages := GetErrorMessages()
 	if _, ok := messages[field]; ok {
-		if _, ok = messages[field][tag]; !ok {
+		if _, ok = messages[field][tag]; ok {
 			return messages[field][tag]
 		}
 	}
@@ -141,10 +141,7 @@ func ValidateSSS[T any](c *gin.Context, obj *T) []responses.ValidationField {
 func UpdateUser(c *gin.Context) {
 	var user UpdateUserObj
 
-	err := c.ShouldBindJSON(&user)
-	if err != nil {
-		fmt.Printf(">>>>>> error: %s\n", err)
-	}
+	_ = c.ShouldBindJSON(&user)
 
 	validationErrors := Validate(c, &user)
 
