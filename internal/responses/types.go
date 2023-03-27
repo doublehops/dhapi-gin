@@ -26,3 +26,5 @@ type ValidationErrorResponseType struct {
 }
 
 type ValidationField map[string][]string
+
+type CustomerErrorMessages map[string]map[string]string
